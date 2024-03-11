@@ -81,7 +81,8 @@
   },
   "hassio_api": true,
   "image": "ghcr.io/alexbelgium/nextcloud_ocr-{arch}",
-  "ingress_port": 0,
+  "ingress": true,
+  "ingress_port": 8099,
   "init": false,
   "map": [
     "config:rw",
