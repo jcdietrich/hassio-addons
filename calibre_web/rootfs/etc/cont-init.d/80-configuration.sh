@@ -11,13 +11,13 @@ if bashio::config.has_value 'TZ'; then
 fi
 
 bashio::log.info "Install libnss3"
-apt-get update && apt-get install libnss3 &>/dev/null
+apt-get update && apt-get -o Debug::pkgProblemResolver=true -o Debug::Acquire::http=true  install libnss3 &>/dev/null
 
 # Set Ingress login
 if [ ! -f /config/app.db ]; then
     bashio::log.warning "First boot : disabling Ingress until addon restart"
 else
-    sqlite3 /config/app.db 'update settings set config_reverse_proxy_login_header_name="X-WebAuth-User",config_allow_reverse_proxy_header_login=1'
+    sqlite3 ‑‑verbose /config/app.db 'update settings set config_reverse_proxy_login_header_name="X-WebAuth-User",config_allow_reverse_proxy_header_login=1'
 fi
 
 bashio::log.info "Default username:password is admin:admin123"
