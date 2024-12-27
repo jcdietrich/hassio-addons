@@ -34,7 +34,7 @@ ENV LANG C.UTF-8
 ENV APP_ID="spotweb"
 ENV APP_NAME="Spotweb"
 ENV APP_DIR="/app"
-ENV BUILD_UPSTREAM="1.5.4"
+ENV BUILD_UPSTREAM="1.5.8"
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -42,7 +42,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base
 # hadolint ignore=DL3003
 # Install app dependencies
-ENV PHPVERS="81"
+ENV PHPVERS="83"
 RUN apk -U update && \
     # hadolint ignore=DL3017
     apk -U upgrade && \
@@ -83,15 +83,20 @@ RUN apk -U update && \
     && mkdir /app/cache \
     && mkdir /var/tmp/nginx
 
+# Corrects permissions for /app directory
+RUN if [ -d /app ]; then chown -R nginx /app; fi
+
 ##################
 # 3 Install apps #
 ##################
 
-# Add rootfs
+# Copy local files
 COPY rootfs/ /
 
-# Corrects permissions for /app directory
-RUN if [ -d /app ]; then chown -R nginx /app; fi
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="01-custom_script.sh"

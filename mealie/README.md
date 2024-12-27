@@ -1,7 +1,7 @@
-## &#9888; Open Issue : [🐛 [Mealie] Direct link to meals plan page redirects incorrectly (opened 2024-01-28)](https://github.com/alexbelgium/hassio-addons/issues/1210) by [@nickj-git](https://github.com/nickj-git)
 # Hass.io Add-ons: Mealie
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
+[![Donate][paypal-badge]](https://www.paypal.com/donate/?hosted_button_id=DZFULJZTP3UQA)
 
 ![Version](https://img.shields.io/badge/dynamic/json?label=Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fmealie%2Fconfig.json)
 ![Ingress](https://img.shields.io/badge/dynamic/json?label=Ingress&query=%24.ingress&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fmealie%2Fconfig.json)
@@ -11,7 +11,8 @@
 [![GitHub Super-Linter](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/weekly-supelinter.yaml?label=Lint%20code%20base)](https://github.com/alexbelgium/hassio-addons/actions/workflows/weekly-supelinter.yaml)
 [![Builder](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/onpush_builder.yaml?label=Builder)](https://github.com/alexbelgium/hassio-addons/actions/workflows/onpush_builder.yaml)
 
-[donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20(no%20paypal)-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[paypal-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20with%20Paypal-0070BA?logo=paypal&style=flat&logoColor=white
 
 Warning : armv7 only supported up to version 0.4.3! It won't be updated with later versions
 
@@ -30,9 +31,9 @@ This addon is based on the [docker image](https://hub.docker.com/r/hkotel/mealie
 ## Configuration
 
 - Start the addon. Wait a while and check the log for any errors.
-- Open yourdomain.com:9925 (where ":9925" is the port configured in the addon).
+- Open yourdomain.com:9090 (where ":9090" is the port configured in the addon).
 - Default
-  - Username: changeme@email.com
+  - Username: changeme@example.com
   - Password: MyPassword
 
 Options can be configured through two ways :
@@ -50,7 +51,7 @@ Options can be configured through two ways :
 ```
 
 - Config.yaml
-  Additional options can be configured using the config.yaml file found in /config/addons_config/mealie/config.yaml
+  Additional options can be configured using the config.yaml file found in /homeassistant/addons_config/xxx-mealie/config.yaml
 
 The complete list of options can be seen here : https://nightly.mealie.io/documentation/getting-started/installation/backend-config/
 

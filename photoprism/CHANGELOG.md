@@ -1,38 +1,62 @@
+
+## ubuntu-2024-09-15 (2024-09-15)
+- Update to latest version from photoprism/photoprism
+
+## ubuntu-2024-07-11 (2024-07-11)
+- Update to latest version from photoprism/photoprism
+## ubuntu-2024-05-31-3 (10-06-2024)
+- Minor bugs fixed
+
+## ubuntu-2024-05-31 (2024-05-31)
+- Update to latest version from photoprism/photoprism
+
+## ubuntu-2024-05-23 (2024-05-23)
+- Update to latest version from photoprism/photoprism
+## 240420-ef5f14bc4 (18-05-2024)
+- Minor bugs fixed
+
 ## preview-ubuntu-2023-04-29-4 (2023-12-04)
+
 - Allows non-admin users to use paperless from HA sidebar
 
 ## preview-ubuntu-2023-04-29 (2023-04-29)
+
 - Update to latest version from photoprism/photoprism
 ## 231021 (22-10-2023)
+
 - Update to latest version from photoprism/photoprism
 
 ## ubuntu-231011 (17-10-2023)
+
 - Update to latest version from photoprism/photoprism
 
 ## ubuntu-230719-73fa7bbe8 (25-07-2023)
+
 - Update to latest version from photoprism/photoprism
 
 ## ubuntu (24-07-2023)
+
 - Update to latest version from photoprism/photoprism
 
 ## ubuntu (10-06-2023)
+
 - Update to latest version from photoprism/photoprism
 - Feat : cifsdomain added
 
-### preview-9 (07-05-2023)
+## preview-9 (07-05-2023)
 
 - Minor bugs fixed
 
-### preview-8 (24-04-2023)
+## preview-8 (24-04-2023)
 
 - Minor bugs fixed
 
-### preview-7 (24-04-2023)
+## preview-7 (24-04-2023)
 
 - Minor bugs fixed
 - Allow environment to be available from command line
 
-### Preview-6 (15-04-2023)
+## Preview-6 (15-04-2023)
 
 - Minor bugs fixed
 - Implemented healthcheck

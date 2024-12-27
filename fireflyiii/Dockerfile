@@ -34,7 +34,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 #    # Change data location
 #    grep -rl "/var/www/html" /etc/ | xargs sed -i 's|/var/www/html|/data/firefly|g'
 
-ARG BUILD_UPSTREAM="6.1.10"
+ARG BUILD_UPSTREAM="6.1.16"
 RUN \
     # Change upload folder to "ha_upload" since the default one is binded to a volume (see base image)
     sed -i "s/'root'   => storage_path('upload'),/'root'   => storage_path('ha_upload'),/g" /var/www/html/config/filesystems.php
@@ -45,6 +45,11 @@ RUN \
 
 # Copy local files
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-global_var.sh 01-config_yaml.sh"

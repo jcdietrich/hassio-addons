@@ -1,5 +1,9 @@
 
+## 4.44.1 (27-07-2024)
+- Update to latest version from linuxserver/docker-ombi (changelog : https://github.com/linuxserver/docker-ombi/releases)
+
 ## 4.43.5 (26-08-2023)
+
 - Update to latest version from linuxserver/docker-ombi
 - Arm32v7 discontinued by linuxserver, latest working version pinned
 

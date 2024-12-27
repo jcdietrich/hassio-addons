@@ -77,7 +77,8 @@
   ],
   "environment": {
     "NEXTCLOUD_PATH": "/data/config/www/nextcloud",
-    "SKIP_DATA_DIRECTORY_PERMISSION_CHECK": "yes"
+    "SKIP_DATA_DIRECTORY_PERMISSION_CHECK": "yes",
+    "TRUSTED_PROXIES": "**"
   },
   "hassio_api": true,
   "image": "ghcr.io/alexbelgium/nextcloud_ocr-{arch}",
@@ -85,7 +86,8 @@
   "ingress_port": 8099,
   "init": false,
   "map": [
-    "config:rw",
+    "addon_config:rw",
+    "homeassistant_config:rw",
     "share:rw",
     "media:rw",
     "ssl:rw"
@@ -105,6 +107,7 @@
     "trusted_domains": "your-domain, your-domain2",
     "use_own_certs": false
   },
+  "panel_admin": false,
   "panel_icon": "mdi:cloud",
   "ports": {
     "443/tcp": 8099,
@@ -150,6 +153,6 @@
   "uart": true,
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/nextcloud",
-  "version": "28.0.3",
+  "version": "30.0.4",
   "webui": "https://[HOST]:[PORT:443]"
 }

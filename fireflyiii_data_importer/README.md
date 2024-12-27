@@ -1,6 +1,7 @@
 # Home assistant add-on: Fireflyiii data importer
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
+[![Donate][paypal-badge]](https://www.paypal.com/donate/?hosted_button_id=DZFULJZTP3UQA)
 
 ![Version](https://img.shields.io/badge/dynamic/json?label=Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Ffireflyiii_data_importer%2Fconfig.json)
 ![Ingress](https://img.shields.io/badge/dynamic/json?label=Ingress&query=%24.ingress&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Ffireflyiii_data_importer%2Fconfig.json)
@@ -10,7 +11,8 @@
 [![GitHub Super-Linter](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/weekly-supelinter.yaml?label=Lint%20code%20base)](https://github.com/alexbelgium/hassio-addons/actions/workflows/weekly-supelinter.yaml)
 [![Builder](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/onpush_builder.yaml?label=Builder)](https://github.com/alexbelgium/hassio-addons/actions/workflows/onpush_builder.yaml)
 
-[donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20(no%20paypal)-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[paypal-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20with%20Paypal-0070BA?logo=paypal&style=flat&logoColor=white
 
 _Thanks to everyone having starred my repo! To star it click on the image below, then it will be on top right. Thanks!_
 
@@ -28,9 +30,9 @@ This addon is based on the docker image https://hub.docker.com/r/fireflyiii/data
 
 Read official documentation for information how to set the variables: https://docs.firefly-iii.org/data-importer.
 
-Configurations can be added in the /config/addons_config/fireflyiii_data_importer/configurations folder according to :https://docs.firefly-iii.org/data-importer/help/config/
+Configurations can be added in the /addon_configs/xxx-fireflyiii_data_importer/configurations folder according to :https://docs.firefly-iii.org/data-importer/help/config/
 
-An auto import can be made by adding files in /config/addons_config/fireflyiii_data_importer/import_files according to : https://docs.firefly-iii.org/data-importer/usage/command_line/
+An auto import can be made by adding files in /addon_configs/xxx-fireflyiii_data_importer/import_files according to : https://docs.firefly-iii.org/data-importer/usage/command_line/
 
 Options can be configured through two ways :
 

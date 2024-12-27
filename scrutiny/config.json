@@ -5,7 +5,7 @@
     "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "Scrutiny WebUI for smartd S.M.A.R.T monitoring",
+  "description": "Scrutiny webUI for smartd S.M.A.R.T monitoring",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -66,7 +66,11 @@
     "/dev/nvme2",
     "/dev/nvme0",
     "/dev/nvme1",
-    "/dev/nvme2"
+    "/dev/nvme2",
+    "/dev/md0",
+    "/dev/md1",
+    "/dev/md2",
+    "/dev/md3"
   ],
   "environment": {
     "COLLECTOR_API_ENDPOINT": "http://localhost:8080",
@@ -76,12 +80,14 @@
   "ingress": true,
   "init": false,
   "map": [
-    "share:rw"
+    "share:rw",
+    "addon_config:rw"
   ],
   "name": "Scrutiny",
   "options": {
     "Updates": "Hourly"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:glasses",
   "ports": {
     "8080/tcp": 8086,
@@ -100,14 +106,15 @@
     "COLLECTOR_API_ENDPOINT": "str?",
     "COLLECTOR_HOST_ID": "str?",
     "Mode": "list(Collector+WebUI|Collector)?",
-    "SMARTCTL_COMMAND_DEVICE_TYPE": "list(auto|ata|scsi|sat|usbcypress|usbjmicron|usbsunplus|marvell|megaraid)?",
+    "SMARTCTL_COMMAND_DEVICE_TYPE": "list(auto|ata|scsi|sat|usbcypress|usbjmicron|usbsunplus|sntasmedia|sntjmicron|sntrealtek|marvell|megaraid)?",
     "SMARTCTL_MEGARAID_DISK_NUM": "int?",
     "TZ": "str?",
-    "Updates": "list(Hourly|Daily|Weekly)",
+    "Updates": "list(Quarterly|Hourly|Daily|Weekly|Custom)",
+    "Updates_custom_time": "str?",
     "expose_collector": "bool?"
   },
   "slug": "scrutiny",
   "udev": true,
   "url": "https://github.com/AnalogJ/scrutiny",
-  "version": "v0.7.3"
+  "version": "v0.8.1-9"
 }

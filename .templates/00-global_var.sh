@@ -54,7 +54,7 @@ for KEYS in "${arr[@]}"; do
             VALUE="$secret"
         fi
         # text
-        if bashio::config.false "verbose" || [[ "${KEYS}" == *"PASS"* ]]; then
+        if bashio::config.false "verbose" || [[ "${KEYS,,}" == *"pass"* ]]; then
             bashio::log.blue "${KEYS}=******"
         else
             bashio::log.blue "$line"
@@ -66,9 +66,13 @@ for KEYS in "${arr[@]}"; do
         # shellcheck disable=SC2163
         export "$line"
         # export to python
-        if command -v "python3" &>/dev/null; then
+        if command -v "python3" &>/dev/null ; then
             [ ! -f /env.py ] && echo "import os" > /env.py
-            echo "os.environ['${KEYS}'] = '${VALUE//[\"\']/}'" >> /env.py
+            # Escape \
+            VALUEPY="${VALUE//\\/\\\\}"
+            # Avoid " and '
+            VALUEPY="${VALUEPY//[\"\']/}"
+            echo "os.environ['${KEYS}'] = '$VALUEPY'" >> /env.py
             python3 /env.py
         fi
         # set .env

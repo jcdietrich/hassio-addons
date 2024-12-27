@@ -14,7 +14,6 @@ server {
 
   location /api {
     proxy_pass {{ .protocol }}://backend;
-    http2_push_preload on;
     client_max_body_size 10M;
   }
 

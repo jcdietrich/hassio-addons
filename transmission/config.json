@@ -64,7 +64,11 @@
     "/dev/sda8",
     "/dev/nvme0",
     "/dev/nvme1",
-    "/dev/nvme2"
+    "/dev/nvme2",
+    "/dev/md0",
+    "/dev/md1",
+    "/dev/md2",
+    "/dev/md3"
   ],
   "environment": {},
   "image": "ghcr.io/alexbelgium/transmission_ls-{arch}",
@@ -84,6 +88,7 @@
     "download_dir": "/share/downloads",
     "incomplete_dir": "/share/incomplete"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:transmission-tower",
   "ports": {
     "51413/tcp": 51413,
@@ -121,5 +126,5 @@
   "slug": "transmission_ls",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "4.0.5-2"
+  "version": "4.0.6-r0-ls272"
 }

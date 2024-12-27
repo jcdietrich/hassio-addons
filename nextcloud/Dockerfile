@@ -31,7 +31,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_SERVICES_GRACETIME=0
 
 # Specific modifications
-ARG CONFIGLOCATION="/share/nextcloud"
+ARG CONFIGLOCATION="/config/data"
 # hadolint ignore=SC2015,SC2086
 RUN \
     # Change default data location
@@ -57,7 +57,12 @@ RUN \
     /defaults/nginx/site-confs/default.conf.sample && \
     \
     # Change location of log
-    sed -i "s|s6-setuidgid abc php -f /config/www/nextcloud/cron.php|(s6-setuidgid abc php -f /config/www/nextcloud/cron.php) \&>/proc/1/fd/1|g" /etc/crontabs/root
+    sed -i "s|s6-setuidgid abc php -f /config/www/nextcloud/cron.php|(s6-setuidgid abc php -f /config/www/nextcloud/cron.php) \&>/proc/1/fd/1|g" /etc/crontabs/root && \
+    \
+    # Disable data check at installation
+    echo "echo \"... Disabling check_data_directory_permissions\"" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run && \
+    echo "sed -i \"/check_data_directory_permissions/d\" /config/www/nextcloud/config/config.php || true" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run && \
+    echo "sed -i \"/datadirectory/a\ \ 'check_data_directory_permissions' => false,\" /config/www/nextcloud/config/config.php || true" >> /etc/s6-overlay/s6-rc.d/init-nextcloud-config/run
 
 # Global LSIO modifications
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_lsio.sh" "/ha_lsio.sh"
@@ -70,6 +75,11 @@ RUN chmod 744 /ha_lsio.sh && if grep -qr "lsio" /etc; then /ha_lsio.sh "$CONFIGL
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-local_mounts.sh 00-smb_mounts.sh"
@@ -154,6 +164,6 @@ ENV HEALTH_PORT="80" \
 HEALTHCHECK \
     --interval=5s \
     --retries=5 \
-    --start-period=360s \
+    --start-period=720s \
     --timeout=45s \
     CMD curl --fail "http://127.0.0.1:${HEALTH_PORT}${HEALTH_URL}" &>/dev/null || curl --fail http://127.0.0.1:443 || exit 1

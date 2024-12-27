@@ -28,6 +28,7 @@
     "password": "homeassistant",
     "ssl": false
   },
+  "panel_admin": false,
   "panel_icon": "mdi:docker",
   "ports": {
     "8000/tcp": null,
@@ -46,5 +47,5 @@
   "slug": "portainer",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "2.19.4-3"
+  "version": "2.25.1"
 }

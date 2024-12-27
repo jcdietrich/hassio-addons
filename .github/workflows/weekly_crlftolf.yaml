@@ -7,8 +7,25 @@ on:
   workflow_dispatch:
   
 jobs:
+  crlf-to-lf:
+    if: github.repository_owner == 'alexbelgium'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository contents
+        uses: actions/checkout@v4
+
+      - name: Use action to check for CRLF endings
+        uses: erclu/check-crlf@v1
+
+      - name: Commit if needed
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Github bot : CRLF corrected"
+          default_author: github_actions
+
   fix-crlf:
     name: Fix CRLF Endings
+    if: github.repository_owner == 'alexbelgium'
     runs-on: ubuntu-latest # Use a Linux runner
     steps:
       - name: Checkout repository contents

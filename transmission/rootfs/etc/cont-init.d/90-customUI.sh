@@ -25,13 +25,9 @@ if bashio::config.has_value 'customUI' && [ ! "$CUSTOMUI" = default ] && [ ! "$C
             ;;
 
         "transmission-web-control")
-            curl -f -s -S -J -L -o /release.zip "$(curl -f -s -L https://api.github.com/repos/transmission-web-control/transmission-web-control/releases/latest | grep -o "http.*dist.zip" | head -1)" >/dev/null
             ### Install WebUI
             mkdir -p /transmission-web-control
-            unzip -q /release.zip -d /transmission-web-control
-            mv /transmission-web-control/dist/* /transmission-web-control
-            rm -r /transmission-web-control/dist
-            rm /release.zip
+            curl -sL $(curl -s https://api.github.com/repos/ronggang/transmission-web-control/releases/latest | jq --raw-output '.tarball_url') | tar -C /transmission-web-control/ --strip-components=2 -xz \
             # Enables the original UI button in transmission-web-control
             ln -s /usr/share/transmission/public_html/* /transmission-web-control/ 2>/dev/null || true
             ln -s /usr/share/transmission/public_html/index.html /transmission-web-control/index.original.html
@@ -64,6 +60,6 @@ if bashio::config.has_value 'customUI' && [ ! "$CUSTOMUI" = default ] && [ ! "$C
     # Define variable
     if cat /etc/services.d/*/*run* &>/dev/null; then sed -i "1a export TRANSMISSION_WEB_HOME=$CUSTOMUI" /etc/services.d/*/*run* 2>/dev/null; fi
     if [ -d /var/run/s6/container_environment ]; then printf "%s" "$CUSTOMUI" > /var/run/s6/container_environment/TRANSMISSION_WEB_HOME; fi
-    printf "%s" "TRANSMISSION_WEB_HOME=\"$CUSTOMUI\"" >> ~/.bashrc
+    printf "%s\n" "TRANSMISSION_WEB_HOME=\"$CUSTOMUI\"" >> ~/.bashrc
 
 fi

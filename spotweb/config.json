@@ -21,6 +21,7 @@
     "keyfile": "privkey.pem",
     "ssl": false
   },
+  "panel_admin": false,
   "panel_icon": "mdi:chart-timeline",
   "panel_title": "Spotweb",
   "ports": {
@@ -46,5 +47,5 @@
   "slug": "spotweb",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/spotweb",
-  "version": "1.5.4-10"
+  "version": "1.5.8"
 }

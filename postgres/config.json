@@ -12,6 +12,7 @@
     "PGDATA": "/config/database"
   },
   "image": "ghcr.io/alexbelgium/postgres-{arch}",
+  "init": false,
   "map": [
     "addon_config:rw",
     "homeassistant_config:rw",
@@ -31,11 +32,11 @@
     "POSTGRES_DB": "str?",
     "POSTGRES_HOST_AUTH_METHOD": "str?",
     "POSTGRES_INITDB_ARGS": "str?",
-    "POSTGRES_PASSWORD": "str",
+    "POSTGRES_PASSWORD": "password",
     "POSTGRES_USER": "str?"
   },
   "slug": "postgres",
   "udev": true,
-  "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "15.5-7"
+  "url": "https://github.com/alexbelgium/hassio-addons/tree/master/postgres",
+  "version": "15.7-4"
 }

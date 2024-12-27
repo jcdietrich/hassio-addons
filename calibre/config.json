@@ -87,6 +87,7 @@
     "PGID": 0,
     "PUID": 0
   },
+  "panel_admin": false,
   "panel_icon": "mdi:book-multiple",
   "ports": {
     "8080/tcp": 8080,
@@ -118,6 +119,6 @@
   "slug": "calibre",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/calibre",
-  "version": "7.6.0",
+  "version": "7.23.0",
   "video": true
 }

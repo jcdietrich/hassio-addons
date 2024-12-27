@@ -31,7 +31,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-ARG BUILD_UPSTREAM="2.19.4"
+ARG BUILD_UPSTREAM="2.25.1"
 
 # spellcheck disable=SC2015
 # hadolint ignore=SC2015
@@ -57,6 +57,11 @@ RUN \
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh"

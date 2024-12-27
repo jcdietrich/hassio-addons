@@ -16,7 +16,7 @@
 
 ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:7.1.0
 ARG BUILD_VERSION
-ARG BUILD_UPSTREAM="1.30.1"
+ARG BUILD_UPSTREAM="1.32.7"
 FROM "vaultwarden/server:${BUILD_UPSTREAM}" as vaultwarden
 FROM ${BUILD_FROM}
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -41,6 +41,11 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-deprecated.sh"

@@ -82,6 +82,7 @@
     "PGID": 0,
     "PUID": 0
   },
+  "panel_admin": false,
   "panel_icon": "mdi:arrow-down-bold-circle-outline",
   "ports": {
     "6789/tcp": 6789
@@ -106,5 +107,5 @@
   "slug": "nzbget",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "v21.1-ls138"
+  "version": "v24.5-ls174"
 }

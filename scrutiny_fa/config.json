@@ -15,12 +15,14 @@
   "ingress": true,
   "init": false,
   "map": [
-    "share:rw"
+    "share:rw",
+    "addon_config:rw"
   ],
   "name": "Scrutiny (Full Access)",
   "options": {
     "Updates": "Hourly"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:glasses",
   "ports": {
     "8080/tcp": 8086,
@@ -39,14 +41,15 @@
     "COLLECTOR_API_ENDPOINT": "str?",
     "COLLECTOR_HOST_ID": "str?",
     "Mode": "list(Collector+WebUI|Collector)?",
-    "SMARTCTL_COMMAND_DEVICE_TYPE": "list(auto|ata|scsi|sat|usbcypress|usbjmicron|usbsunplus|marvell|megaraid)?",
+    "SMARTCTL_COMMAND_DEVICE_TYPE": "list(auto|ata|scsi|sat|usbcypress|usbjmicron|usbsunplus|marvell|megaraid|sntasmedia)?",
     "SMARTCTL_MEGARAID_DISK_NUM": "int?",
     "TZ": "str?",
-    "Updates": "list(Hourly|Daily|Weekly)",
+    "Updates": "list(Quarterly|Hourly|Daily|Weekly|Custom)",
+    "Updates_custom_time": "str?",
     "expose_collector": "bool?"
   },
   "slug": "scrutiny_fa",
   "udev": true,
   "url": "https://github.com/AnalogJ/scrutiny",
-  "version": "v0.7.3"
+  "version": "v0.8.1-9"
 }

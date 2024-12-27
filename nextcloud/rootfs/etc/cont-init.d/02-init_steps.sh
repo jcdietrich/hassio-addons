@@ -2,15 +2,6 @@
 # shellcheck shell=bash
 set -e
 
-# Clear default.conf from erroneous upstream element (only once)
-if [ ! -f /data/done ] && [ -f /data/config/nginx/site-confs/default.conf ]; then
-    rm /data/config/nginx/site-confs/*
-    touch /data/done
-    bashio::addon.restart
-elif [ ! -f /data/config/nginx/site-confs/default.conf ]; then
-    cp /defaults/nginx/site-confs/default.conf.sample /data/config/nginx/site-confs/default.conf  
-fi
-
 # Runs only after initialization done
 # shellcheck disable=SC2128
 if [ ! -f /app/www/public/occ ]; then cp /etc/cont-init.d/"$(basename "${BASH_SOURCE}")" /scripts/ && exit 0; fi
@@ -150,7 +141,7 @@ if bashio::config.true "enable_thumbnails"; then
     sudo -u abc php /app/www/public/occ config:system:set preview_ffmpeg_path --value='/usr/bin/ffmpeg'
     sudo -u abc php /app/www/public/occ config:system:set enable_previews --value=true
     i=0
-    for element in TXT MarkDown OpenDocument PDF Image TIFF SVG Font MP3 Movie MKV MP4 AVI; do # Comma separated values
+    for element in AVI BMP Font GIF HEIC Image JPEG Krita MarkDown MKV Movie MP3 MP4 OpenDocument PDF PNG SVG TIFF TXT XBitmap; do # Comma separated values
         sudo -u abc php /app/www/public/occ config:system:set enabledPreviewProviders "$i" --value="OC\\Preview\\${element}" >/dev/null
         i=$((i + 1))
     done
@@ -158,4 +149,13 @@ else
     # Remove variables
     echo "... disabling thumbnails"
     sudo -u abc php /app/www/public/occ config:system:set enable_previews --value=false
+fi
+
+##########################
+# Set maintenance period #
+##########################
+
+if [[ "$(occ config:system:get maintenance_window_start)" == "" ]]; then
+    echo "... maintenance windows not set, it will be changed to 1"
+    sudo -u abc php /app/www/public/occ config:system:set maintenance_window_start --type=integer --value=1
 fi

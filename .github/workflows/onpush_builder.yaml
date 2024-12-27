@@ -16,6 +16,7 @@ on:
 
 jobs:
   correct_path_filters:
+    if: github.repository_owner == 'alexbelgium'
     runs-on: ubuntu-latest
     steps:
       - name: ↩️ Checkout
@@ -83,6 +84,7 @@ jobs:
       - name: Make scripts executable
         run: |
           echo "Starting"
+          git pull origin master
           git config core.filemode true
           # shellcheck disable=SC2086,SC2046
           #git update-index --chmod=+x $(find "$path" -type f -iname "*.sh")
@@ -153,17 +155,22 @@ jobs:
              # shellcheck disable=SC2129
              echo "build_arch=false" >> $GITHUB_OUTPUT;
           fi
+
+      - name: Use action to check for mixed line endings (CRLF and LF)
+        uses: ymwymw/check-mixed-line-endings@v2
+
       - name: Login to GitHub Container Registry
         if: env.BUILD_ARGS != '--test'
-        uses: docker/login-action@v3.0.0
+        uses: docker/login-action@v3.1.0
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build ${{ matrix.addon }} add-on
+        id: builderstep
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@master
+        uses: home-assistant/builder@2024.08.1
         env:
           CAS_API_KEY: ${{ secrets.CAS_API_KEY }}
         with:
@@ -211,7 +218,7 @@ jobs:
             if [[ "$first_line" != "-"* ]]; then
               sed -i "1i\- Minor bugs fixed" CHANGELOG.md
             fi
-            sed -i "1i\### $version ($(date '+%d-%m-%Y'))" CHANGELOG.md
+            sed -i "1i\## $version ($(date '+%d-%m-%Y'))" CHANGELOG.md
             #fi
           fi
         env: 

@@ -39,7 +39,9 @@ RUN \
     sed -i "1a if [[ \"\$LOCATION\" = \"null\" || -z \"\$LOCATION\" ]]; then LOCATION=/config/addons_config/\${HOSTNAME#*-}; fi" /etc/s6-overlay/s6-rc.d/svc-jellyfin/run && \
     sed -i "1a LOCATION=\$(bashio::config 'data_location')" etc/s6-overlay/s6-rc.d/svc-jellyfin/run && \
     sed -i "s|/config|\$LOCATION|g" /etc/s6-overlay/s6-rc.d/svc-jellyfin/run && \
-    sed -i "s|/usr/share/jellyfin|\$LOCATION|g" /etc/s6-overlay/s6-rc.d/svc-jellyfin/run
+    sed -i "s|/usr/share/jellyfin|\$LOCATION|g" /etc/s6-overlay/s6-rc.d/svc-jellyfin/run && \
+    # Ensure ffmpeg is set \
+    sed -i "1a set +u" /etc/s6-overlay/s6-rc.d/svc-jellyfin/run
 
 ##################
 # 3 Install apps #
@@ -47,6 +49,11 @@ RUN \
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-local_mounts.sh 00-smb_mounts.sh"

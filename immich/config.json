@@ -70,9 +70,12 @@
   "environment": {
     "CI_PORT": "8080",
     "DOCKER_MODS": "imagegenius/mods:universal-redis",
+    "IMMICH_PORT": "8080",
     "MACHINE_LEARNING_CACHE_FOLDER": "/data/machine-learning",
     "MACHINE_LEARNING_WORKERS": "1",
     "MACHINE_LEARNING_WORKER_TIMEOUT": "120",
+    "PGID": "0",
+    "PUID": "0",
     "REDIS_HOSTNAME": "localhost",
     "REDIS_PORT": "6379",
     "REVERSE_GEOCODING_DUMP_DIRECTORY": "/data/.reverse-geocoding-dump/",
@@ -97,11 +100,10 @@
     "DB_USERNAME": "postgres",
     "DISABLE_MACHINE_LEARNING": false,
     "JWT_SECRET": "jt+OVWY6WqKJXw3xF5qOxN5L5/f4u2jlIlCQgWS3E4w=",
-    "PGID": 1000,
-    "PUID": 1000,
     "TZ": "Europe/Paris",
     "data_location": "/share/immich"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:file-search",
   "ports": {
     "8080/tcp": 8181
@@ -123,8 +125,6 @@
     "JWT_SECRET": "str",
     "MACHINE_LEARNING_WORKERS": "int?",
     "MACHINE_LEARNING_WORKER_TIMEOUT": "int?",
-    "PGID": "int",
-    "PUID": "int",
     "TZ": "str?",
     "cifsdomain": "str?",
     "cifspassword": "str?",
@@ -139,6 +139,6 @@
   "slug": "immich",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.98.1",
+  "version": "1.123.0",
   "webui": "http://[HOST]:[PORT:8080]"
 }

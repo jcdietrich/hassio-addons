@@ -39,7 +39,7 @@ fi
 if bashio::config.has_value "TZ"; then
     TZ="$(bashio::config 'TZ')"
     bashio::log.info "Timezone : $TZ"
-    sed -i "1a export TZ=$TZ" /etc/cont-init.d/10-timezone
+    sed -i "1a export TZ=$TZ" /etc/cont-init.d/01-timezone
 fi
 
 ################
@@ -48,9 +48,13 @@ fi
 
 # Align update with options
 FREQUENCY="$(bashio::config 'Updates')"
-bashio::log.info "$FREQUENCY updates"
+bashio::log.info "$FREQUENCY updates as defined in the 'Updates' option"
 
 case "$FREQUENCY" in
+    "Quarterly")
+        sed -i "/customize the cron schedule/a export COLLECTOR_CRON_SCHEDULE=\"*/15 * * * *\"" /etc/cont-init.d/50-cron-config
+        ;;
+
     "Hourly")
         sed -i "/customize the cron schedule/a export COLLECTOR_CRON_SCHEDULE=\"0 * * * *\"" /etc/cont-init.d/50-cron-config
         ;;
@@ -62,31 +66,57 @@ case "$FREQUENCY" in
     "Weekly")
         sed -i "/customize the cron schedule/a export COLLECTOR_CRON_SCHEDULE=\"0 0 * * 0\"" /etc/cont-init.d/50-cron-config
         ;;
+
+    "Custom")
+        interval="$(bashio::config 'Updates_custom_time')"
+        bashio::log.info "... frequency is defined manually as $interval"
+
+        case "$interval" in
+            *m) # Matches intervals in minutes, like "5m" or "30m"
+                minutes="${interval%m}"
+                if [[ "$minutes" -gt 0 && "$minutes" -le 59 ]]; then
+                    cron_schedule="*/$minutes * * * *"
+                else
+                    bashio::log.error "Invalid minute interval: $interval"
+                fi
+                ;;
+
+            *h) # Matches intervals in hours, like "2h"
+                hours="${interval%h}"
+                if [[ "$hours" -gt 0 && "$hours" -le 23 ]]; then
+                    cron_schedule="0 */$hours * * *"
+                else
+                    bashio::log.error "Invalid hour interval: $interval"
+                fi
+                ;;
+
+            *w) # Matches intervals in weeks, like "1w"
+                weeks="${interval%w}"
+                if [[ "$weeks" -gt 0 && "$weeks" -le 4 ]]; then
+                    cron_schedule="0 0 * * 0" # Weekly on Sunday (adjust if needed for multi-week)
+                else
+                    bashio::log.error "Invalid week interval: $interval"
+                fi
+                ;;
+
+            *mo) # Matches intervals in months, like "1mo"
+                months="${interval%mo}"
+                if [[ "$months" -gt 0 && "$months" -le 12 ]]; then
+                    cron_schedule="0 0 1 */$months *" # Monthly on the 1st
+                else
+                    bashio::log.error "Invalid month interval: $interval"
+                fi
+                ;;
+
+            *)
+                bashio::log.error "Empty or unsupported custom interval. It should be in the format of 5m (every 5 minutes), 10d (every 10 days), 3w (every 3 weeks), 3mo (every 3 months)"
+                ;;
+        esac
+
+        if [[ -n "$cron_schedule" ]]; then
+            sed -i "/customize the cron schedule/a export COLLECTOR_CRON_SCHEDULE=\"$cron_schedule\"" /etc/cont-init.d/50-cron-config
+            bashio::log.info "Custom cron schedule set to: $cron_schedule"
+        fi
+        ;;
 esac
 
-############################
-# SMARTCTL COMMAND OPTIONS #
-############################
-
-# Alignt with smartctl commands options
-if bashio::config.has_value "SMARTCTL_COMMAND_DEVICE_TYPE"; then
-    device_type="$(bashio::config 'SMARTCTL_COMMAND_DEVICE_TYPE')"
-    if ! bashio::config.has_value "SMARTCTL_MEGARAID_DISK_NUM"; then
-        megaraid_disk_num="$(bashio::config 'SMARTCTL_MEGARAID_DISK_NUM')"
-        {
-            echo "commands:"
-            echo "  metrics_smartctl_bin: '/usr/sbin/smartctl'"
-            echo "  metrics_scan_args: '--scan --json --dev ${device_type}'"
-            echo "  metrics_info_args: '--info --json --dev ${device_type}'"
-            echo "  metrics_smart_args: '--xall --json --dev ${device_type}'"
-        } > /opt/scrutiny/config/collector.yaml
-    else
-        {
-            echo "commands:"
-            echo "  metrics_smartctl_bin: '/usr/sbin/smartctl'"
-            echo "  metrics_scan_args: '--scan --json --dev ${device_type},${megaraid_disk_num}'"
-            echo "  metrics_info_args: '--info --json --dev ${device_type},${megaraid_disk_num}'"
-            echo "  metrics_smart_args: '--xall --json --dev ${device_type},${megaraid_disk_num}'"
-        } > /opt/scrutiny/config/collector.yaml
-    fi
-fi

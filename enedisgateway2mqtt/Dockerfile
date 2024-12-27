@@ -14,7 +14,7 @@
 # 1 Build Image #
 #################
 
-ARG BUILD_UPSTREAM="0.12.0"
+ARG BUILD_UPSTREAM="0.13.2"
 FROM m4dm4rtig4n/myelectricaldata:latest
 
 
@@ -33,6 +33,11 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-global_var.sh"

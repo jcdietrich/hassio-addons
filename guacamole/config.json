@@ -68,7 +68,8 @@
   "ingress": true,
   "init": false,
   "map": [
-    "config:rw",
+    "addon_config:rw",
+    "homeassistant_config:rw",
     "media:rw",
     "share:rw",
     "ssl:ro"
@@ -77,6 +78,7 @@
   "options": {
     "EXTENSIONS": "auth-totp"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:lan",
   "ports": {
     "8080/tcp": 4822
@@ -91,6 +93,6 @@
   "slug": "guacamole",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "testnoupload-4",
+  "version": "1.5.5",
   "video": true
 }

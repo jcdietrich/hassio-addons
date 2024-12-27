@@ -273,13 +273,21 @@ for f in */; do
             # Remove " and modify version
             LASTVERSION=${LASTVERSION//\"/}
             CURRENT=${CURRENT//\"/}
-            jq --arg variable "$LASTVERSION" '.version = $variable' /data/"${BASENAME}"/"${SLUG}"/config.json | sponge /data/"${BASENAME}"/"${SLUG}"/config.json # Replace version tag
+            if [ -f /data/"${BASENAME}"/"${SLUG}"/config.json ]; then
+              jq --arg variable "$LASTVERSION" '.version = $variable' /data/"${BASENAME}"/"${SLUG}"/config.json | sponge /data/"${BASENAME}"/"${SLUG}"/config.json # Replace version tag
+            elif [ -f /data/"${BASENAME}"/"${SLUG}"/config.yaml ]; then
+              sed -i "/version:/c\version: \"$LASTVERSION\"" /data/"${BASENAME}"/"${SLUG}"/config.yaml
+            fi
             jq --arg variable "$LASTVERSION" '.upstream_version = $variable' /data/"${BASENAME}"/"${SLUG}"/updater.json | sponge /data/"${BASENAME}"/"${SLUG}"/updater.json # Replace upstream tag
             jq --arg variable "$DATE" '.last_update = $variable' /data/"${BASENAME}"/"${SLUG}"/updater.json | sponge /data/"${BASENAME}"/"${SLUG}"/updater.json # Replace date tag
 
             #Update changelog
             touch "/data/${BASENAME}/${SLUG}/CHANGELOG.md"
-            sed -i "1i - Update to latest version from $UPSTREAM" "/data/${BASENAME}/${SLUG}/CHANGELOG.md"
+            if [[ "$SOURCE" == *"github"* ]]; then
+                sed -i "1i - Update to latest version from $UPSTREAM (changelog : https://github.com/${UPSTREAM%/}/releases)" "/data/${BASENAME}/${SLUG}/CHANGELOG.md"
+            else
+                sed -i "1i - Update to latest version from $UPSTREAM" "/data/${BASENAME}/${SLUG}/CHANGELOG.md"
+            fi
             sed -i "1i ## ${LASTVERSION} (${DATE})" "/data/${BASENAME}/${SLUG}/CHANGELOG.md"
             sed -i "1i " "/data/${BASENAME}/${SLUG}/CHANGELOG.md"
             LOGINFO="... $SLUG : files updated" && if [ "$VERBOSE" = true ]; then bashio::log.info "$LOGINFO"; fi

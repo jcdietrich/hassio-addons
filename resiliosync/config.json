@@ -1,8 +1,7 @@
 {
   "arch": [
     "aarch64",
-    "amd64",
-    "armv7"
+    "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
   "description": "Self-hosted file share and collaboration platform on the web",
@@ -82,6 +81,7 @@
     "data_location": "/share/resiliosync",
     "downloads_location": "/share/resiliosync_downloads"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:cloud-sync-outline",
   "ports": {
     "55555/tcp": 55555,
@@ -112,5 +112,5 @@
   "slug": "resiliosync",
   "udev": true,
   "url": "https://github.com/tyjtyj/hassio-addons",
-  "version": "2.7.3-12"
+  "version": "3.0.0.1409"
 }

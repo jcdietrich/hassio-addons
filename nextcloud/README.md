@@ -1,6 +1,8 @@
+## &#9888; Open Issue : [🐛 [Nextcloud] Nextcloud-ocr.sh gets deleted on startup (opened 2024-12-27)](https://github.com/alexbelgium/hassio-addons/issues/1682) by [@tsvi](https://github.com/tsvi)
 # Home assistant add-on: Nextcloud
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
+[![Donate][paypal-badge]](https://www.paypal.com/donate/?hosted_button_id=DZFULJZTP3UQA)
 
 ![Version](https://img.shields.io/badge/dynamic/json?label=Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fnextcloud%2Fconfig.json)
 ![Ingress](https://img.shields.io/badge/dynamic/json?label=Ingress&query=%24.ingress&url=https%3A%2F%2Fraw.githubusercontent.com%2Falexbelgium%2Fhassio-addons%2Fmaster%2Fnextcloud%2Fconfig.json)
@@ -10,7 +12,8 @@
 [![GitHub Super-Linter](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/weekly-supelinter.yaml?label=Lint%20code%20base)](https://github.com/alexbelgium/hassio-addons/actions/workflows/weekly-supelinter.yaml)
 [![Builder](https://img.shields.io/github/actions/workflow/status/alexbelgium/hassio-addons/onpush_builder.yaml?label=Builder)](https://github.com/alexbelgium/hassio-addons/actions/workflows/onpush_builder.yaml)
 
-[donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[donation-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20(no%20paypal)-%23d32f2f?logo=buy-me-a-coffee&style=flat&logoColor=white
+[paypal-badge]: https://img.shields.io/badge/Buy%20me%20a%20coffee%20with%20Paypal-0070BA?logo=paypal&style=flat&logoColor=white
 
 ![Uses elasticsearch][elasticsearch-shield]
 
@@ -30,7 +33,28 @@ This addon is based on the [docker image](https://github.com/linuxserver/docker-
 
 ### Custom scripts
 
-Scripts with .sh ending located in /config/addons_config/nextcloud will be executed at boot
+/config/addons_autoscripts/nextcloud-ocr.sh will be executed at boot.
+To run custom commands at boot you can try a code such as :
+```bash
+#!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
+
+#################
+# CODE INJECTOR #
+#################
+
+# Any commands written in this bash script will be executed at addon start
+# See guide here : https://github.com/alexbelgium/hassio-addons/wiki/Add%E2%80%90ons-feature-:-customisation
+
+# Runs only after initialization done
+# shellcheck disable=SC2128
+mkdir -p /scripts
+if [ ! -f /app/www/public/occ ]; then cp /config/addons_autoscripts/"$(basename "${BASH_SOURCE}")" /scripts/ && exit 0; fi
+
+echo "Scanning files"
+sudo -u abc php /app/www/public/occ files:scan --all
+echo "This is done !"
+```
 
 ### Addon options
 
@@ -42,7 +66,7 @@ PGID/PUID: 1000 #allows setting user.
 trusted_domains: your-domain.com #allows to select the trusted domains. Domains not in this lis will be removed, except for the first one used in the initial configuration.
 OCR: false #set to true to install tesseract-ocr capability.
 OCRLANG: fra,eng #Any language can be set from this page (always three letters) [here](https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016).
-data_directory: path for the main data directory. Defaults to `/share/nextcloud`. Only used to set permissions and prefill the initial installation template. Once initial  installation is done it can't be changed
+data_directory: path for the main data directory. Defaults to `/config/data`. Only used to set permissions and prefill the initial installation template. Once initial  installation is done it can't be changed
 enable_thumbnails: true/false # enable generations of thumbnails for media file (to disable for older systems)
 use_own_certs: true/false #if true, use the certfile and keyfile specified
 certfile: fullchain.pem #ssl certificate, must be located in /ssl
@@ -57,6 +81,10 @@ env_upload_max_filesize; nextcloud upload size (default is 512M)
 ```
 
 Webui can be found at `<your-ip>:port`.
+
+### Change the temp folder to avoid bloating emmc on HA systems (thanks @senna1992)
+
+See ; https://github.com/alexbelgium/hassio-addons/discussions/1370
 
 ### Use mariadb as the main database (Thanks @amaciuc)
 

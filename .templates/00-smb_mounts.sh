@@ -19,6 +19,7 @@ test_mount () {
     fi
 
     # Exit if can't write
+    [[ -e "/mnt/$diskname/testaze" ]] && rm -r "/mnt/$diskname/testaze"
     # shellcheck disable=SC2015
     mkdir "/mnt/$diskname/testaze" && touch "/mnt/$diskname/testaze/testaze" && rm -r "/mnt/$diskname/testaze" || ERROR_MOUNT=true
     if [[ "$ERROR_MOUNT" == "true" ]]; then
@@ -186,10 +187,12 @@ if bashio::config.has_value 'networkdisks'; then
             # Extracting SMB versions and normalize output
             # shellcheck disable=SC2210,SC2094
             SMBVERS="$(nmap --script smb-protocols "$server" -p 445 2>1 | awk '/  [0-9]/' | awk '{print $NF}'  | cut -c -3 | sort -V | tail -n 1  || true)"
+            # Avoid :
+            SMBVERS="${SMBVERS/:/.}"
             # Manage output
             if [ -n "$SMBVERS" ]; then
                 case $SMBVERS in
-                    202)
+                    "202"|"200"|"20")
                         SMBVERS="2.0"
                         ;;
                     21)

@@ -34,6 +34,11 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # Add rootfs
 COPY rootfs/ /
 
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
+
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh"
 
@@ -65,7 +70,10 @@ RUN \
     sed -i "s|/fgc|/data|g" /usr/local/bin/docker-entrypoint.sh && \
     # Run scripts only once
     sed -i "1a if [ -f /done ]; then exit 0; fi && touch /done" /ha_entrypoint.sh && \
-    sed -i "s=x11vnc=[[ \"\$(ps aux | grep \"x11vnc\" | grep -v grep)\" ]] || x11vnc=g" /usr/local/bin/docker-entrypoint.sh
+    sed -i "s=x11vnc=[[ \"\$(ps aux | grep \"x11vnc\" | grep -v grep)\" ]] || x11vnc=g" /usr/local/bin/docker-entrypoint.sh && \
+    # Update playwright
+    npx playwright install-deps && \
+    npx playwright install
 
 WORKDIR /data
 ENTRYPOINT [ "/usr/bin/env" ]

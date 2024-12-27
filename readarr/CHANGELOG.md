@@ -1,167 +1,311 @@
 
+## 0.4.6.2711 (21-12-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.6.2701 (14-12-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.5.2696 (07-12-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.5.2691 (30-11-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.4.2686 (23-11-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.4.2683 (16-11-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.4.2666 (09-11-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.3.2663 (02-11-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.3.2662 (02-11-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.2.2653 (26-10-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.1.2648 (12-10-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.1.2642 (05-10-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.0.2630 (28-09-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.4.0.2593 (27-07-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.32.2587 (20-07-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.31.2578 (13-07-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+## 0.3.30.2576-2 (06-07-2024)
+- Minor bugs fixed
+
+## 0.3.30.2576 (06-07-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.30.2572 (29-06-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.29.2565 (15-06-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.28.2554 (08-06-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.28.2548 (25-05-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.27.2538 (11-05-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.25.2515 (27-04-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+- Fix : not starting
+
+- BREAKING CHANGE : ingress_disabled option removed. Instead, a new option connection_mode is added. It has 3 modes : ingress_noauth (default, disables authentification to allow a seamless ingress integration), noingress_auth (disables ingress to allow a simpler external url, enables authentification), ingress_auth (enables both ingress and authentification). Thanks @Ni3kjm !
+
+## 0.3.24.2509 (20-04-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.23.2506 (13-04-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.22.2487 (30-03-2024)
+- Update to latest version from linuxserver/docker-readarr (changelog : https://github.com/linuxserver/docker-readarr/releases)
+
+## 0.3.21.2475 (23-03-2024)
+- Update to latest version from linuxserver/docker-readarr
+
+## 0.3.21.2457 (16-03-2024)
+- Update to latest version from linuxserver/docker-readarr
+
 ## 0.3.20.2452 (09-03-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.19.2437 (24-02-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.19.2424 (17-02-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.18.2411 (03-02-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.17.2406 (27-01-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.16.2387 (20-01-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 - There is now an official addon in the community repository, you should migrate to it !
 
 ## 0.3.15.2376 (13-01-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.14.2354 (06-01-2024)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.14.2348 (30-12-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.13.2334 (23-12-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.12.2326 (16-12-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.11.2319 (10-12-2023)
+
 - Update to latest version from linuxserver/docker-readarr
-### 0.3.10.2287-13 (24-11-2023)
+## 0.3.10.2287-13 (24-11-2023)
+
 - Minor bugs fixed
 - Add text message to clarify url for login (if disabled or not)
 - Fix error "Requested value \u0027external\u0027 was not found"
 
-### 0.3.10.2287-11 (23-11-2023)
+## 0.3.10.2287-11 (23-11-2023)
+
 - Minor bugs fixed
-### 0.3.10.2287-10 (23-11-2023)
+## 0.3.10.2287-10 (23-11-2023)
+
 - Minor bugs fixed
-### 0.3.10.2287-9 (23-11-2023)
+## 0.3.10.2287-9 (23-11-2023)
+
 - Minor bugs fixed
-### 0.3.10.2287-8 (23-11-2023)
+## 0.3.10.2287-8 (23-11-2023)
+
 - Minor bugs fixed
 - Fix : restore normal working
 
-### 0.3.10.2287-6 (21-11-2023)
+## 0.3.10.2287-6 (21-11-2023)
+
 - Minor bugs fixed
 
 ## 0.3.10.2287 (04-11-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 - Fix : disable authentification when using ingress
 
 ## 0.3.9.2272 (20-10-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.8.2267 (14-10-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.7.2257 (07-10-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.6.2232 (23-09-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.4.2207 (09-09-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.4.2193 (02-09-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.4.2187 (27-08-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## 0.3.4.2184 (26-08-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.3.4.2184-ls214 (26-08-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.3.3.2150-ls202 (19-08-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.3.1.2096-ls193 (12-08-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.3.1.2096-ls192 (05-08-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.2.4.1999-ls189 (29-07-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## develop-0.2.4.1999-ls55 (23-07-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.2.4.1999-ls188 (22-07-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.2.3.1953-ls186 (15-07-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.2.2.1931-ls184 (08-07-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.2.1.1915-ls183 (01-07-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.2.0.1908-ls183 (24-06-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.9.1894-ls182 (17-06-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.8.1883-ls180 (10-06-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.7.1882-ls179 (03-06-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.6.1865-ls178 (27-05-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.5.1831-ls175 (19-05-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.5.1801-ls175 (13-05-2023)
+
 - Update to latest version from linuxserver/docker-readarr
-### nightly-0.1.5.1718-ls173-2 (12-05-2023)
+## nightly-0.1.5.1718-ls173-2 (12-05-2023)
+
 - Minor bugs fixed
 
 ## nightly-0.1.5.1718-ls173 (06-05-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.4.1596-ls171 (29-04-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.4.1596-ls170 (21-04-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## develop-0.1.4.1596-ls39 (08-04-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## develop-0.1.4.1596-ls38 (31-03-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.4.1596-ls167 (24-03-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.4.1596-ls166 (04-03-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.4.1591-ls165 (25-02-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.3.1584-ls163 (19-02-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 
 ## nightly-0.1.3.1573-ls161 (11-02-2023)
+
 - Update to latest version from linuxserver/docker-readarr
 - Add ingress_disabled option
 - Ingress addition

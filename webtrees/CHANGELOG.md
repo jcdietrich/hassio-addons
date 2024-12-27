@@ -1,8 +1,22 @@
 
+## 2.2.1 (07-12-2024)
+- Update to latest version from nathanvaughn/webtrees-docker (changelog : https://github.com/nathanvaughn/webtrees-docker/releases)
+
+## 2.2.0 (30-11-2024)
+- Update to latest version from nathanvaughn/webtrees-docker (changelog : https://github.com/nathanvaughn/webtrees-docker/releases)
+
+## 2.1.20 (13-04-2024)
+- Update to latest version from nathanvaughn/webtrees-docker (changelog : https://github.com/nathanvaughn/webtrees-docker/releases)
+
+## 2.1.19 (23-03-2024)
+- Update to latest version from nathanvaughn/webtrees-docker
+
 ## 2.1.18 (20-10-2023)
+
 - Update to latest version from nathanvaughn/webtrees-docker
 
 ## 2.1.17 (15-07-2023)
+
 - Update to latest version from nathanvaughn/webtrees-docker
 - Feat : cifsdomain added
 

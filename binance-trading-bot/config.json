@@ -84,6 +84,7 @@
     "BINANCE_MODE": "test",
     "BINANCE_SLACK_ENABLED": false
   },
+  "panel_admin": false,
   "panel_icon": "mdi:bitcoin",
   "ports": {
     "80/tcp": null,
@@ -115,5 +116,5 @@
   "slug": "binance-trading-bot",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "0.0.98"
+  "version": "0.0.99"
 }

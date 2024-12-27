@@ -41,6 +41,11 @@ RUN \
 # Add rootfs
 COPY rootfs/ /
 
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
+
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh 00-global_var.sh"
 
@@ -67,7 +72,9 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
-RUN chmod 777 /docker-entrypoint-initdb.d/*
+RUN chmod 777 /docker-entrypoint-initdb.d/* && \
+    sed -i "/Termination signal received/a gosu postgres pg_ctl -D \"\$PGDATA\" -m fast stop" /ha_entrypoint.sh
+
 WORKDIR /config
 ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/ha_entrypoint.sh" ]

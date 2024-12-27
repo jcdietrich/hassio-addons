@@ -28,26 +28,22 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_SERVICES_GRACETIME=0
 
 
-ENV PGDATA=/config/addons_config/guacamole/postgres
-ENV GUACAMOLE_HOME=/config/addons_config/guacamole
-WORKDIR /config/addons_config/guacamole
+ENV PGDATA=/config/postgres
+ENV GUACAMOLE_HOME=/config
+WORKDIR /config
 
 # hadolint ignore=SC2016
 RUN \
-    # Change config location
-    sed -i 's|/config|/config/addons_config/guacamole|g' /etc/cont-init.d/* \
-    && sed -i 's|/config|/config/addons_config/guacamole|g' /etc/services.d/*/run \
-    \
     # Enable extensions
-    && sed -i 's|#!/usr/bin/with-contenv sh|#!/usr/bin/with-contenv bashio|g' /etc/cont-init.d/50-extensions.sh \
+    sed -i 's|#!/usr/bin/with-contenv sh|#!/usr/bin/with-contenv bashio|g' /etc/cont-init.d/50-extensions.sh \
     && sed -i 's|$EXTENSIONS|$(bashio::config "EXTENSIONS")|g' /etc/cont-init.d/50-extensions.sh \
     \
     # Correct transfer
     && sed -i 's|cp -rn /app/guacamole|cp -rn /app/guacamole/*|g' /etc/cont-init.d/* \
     \
     # avoid error
-    && sed -i 's|(cat /config/.database-version)|(cat /config/.database-version &>/dev/null)|g' /etc/cont-init.d/* \
-    && sed -i 's|(cat /config/.database-version)|(cat /config/.database-version &>/dev/null)|g' /etc/services.d/*/run \
+    && sed -i 's|(cat /config/\.database-version)|(cat /config/\.database-version \&>/dev/null)|g' /etc/cont-init.d/* \
+    && sed -i 's|(cat /config/\.database-version)|(cat /config/\.database-version \&>/dev/null)|g' /etc/services.d/*/run \
     \
     # Allow syslog
     && mkdir -p /tmpsock \
@@ -55,7 +51,7 @@ RUN \
     && sed -i "s|s6-socklog -d3 -U -t3000|s6-socklog -d3 -U -t3000 -x /tmpsock/syslog|g" /etc/s6-overlay/s6-rc.d/syslogd/run \
     \
     # Allow custom fonts
-    && sed -i '\|<dir>/usr/share/fonts</dir>|a\ \ \ \ \ \ \ \ <dir>/config/addons_config/guacamole/fonts</dir>' /etc/fonts/fonts.conf \
+    && sed -i '\|<dir>/usr/share/fonts</dir>|a\ \ \ \ \ \ \ \ <dir>/config/fonts</dir>' /etc/fonts/fonts.conf \
     \
     # Avoid https://github.com/alexbelgium/hassio-addons/issues/659
     && rm -r /run/shm
@@ -66,6 +62,11 @@ RUN \
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh"

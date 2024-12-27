@@ -13,16 +13,16 @@ if [ ! -d /config ]; then
 fi
 
 # Define slug
-slug="${HOSTNAME}"
+slug="${HOSTNAME/-/_}"
+slug="${slug#*_}"
 
 # Check type of config folder
 if [ ! -f /config/configuration.yaml ] && [ ! -f /config/configuration.json ]; then
     # New config location
     CONFIGLOCATION="/config"
-    CONFIGFILEBROWSER="/addon_configs/$slug/config.yaml"
+    CONFIGFILEBROWSER="/addon_configs/${HOSTNAME/-/_}/config.yaml"
 else
     # Legacy config location
-    slug="${HOSTNAME#*-}"
     CONFIGLOCATION="/config/addons_config/${slug}"
     CONFIGFILEBROWSER="/homeassistant/addons_config/$slug/config.yaml"
 fi
@@ -35,6 +35,9 @@ CONFIGSOURCE="$CONFIGLOCATION"/config.yaml
 if bashio::config.has_value 'CONFIG_LOCATION'; then
 
     CONFIGSOURCE=$(bashio::config "CONFIG_LOCATION")
+    if [[ "$CONFIGSOURCE" == *.* ]]; then
+        CONFIGSOURCE=$(dirname "$CONFIGSOURCE")
+    fi
     # If does not end by config.yaml, remove trailing slash and add config.yaml
     if [[ "$CONFIGSOURCE" != *".yaml" ]]; then
         CONFIGSOURCE="${CONFIGSOURCE%/}"/config.yaml
@@ -111,7 +114,7 @@ fi
 # Check if there are lines to read
 cp "$CONFIGSOURCE" /tempenv
 sed -i '/^#/d' /tempenv
-sed -i '/^ /d' /tempenv
+sed -i '/^[[:space:]]*$/d' /tempenv
 sed -i '/^$/d' /tempenv
 # Exit if empty
 if [ ! -s /tempenv ]; then
@@ -154,6 +157,10 @@ parse_yaml "$CONFIGSOURCE" "" >/tmpfile
 # Escape dollars
 sed -i 's|$.|\$|g' /tmpfile
 
+# Look where secrets.yaml is located
+SECRETSFILE="/config/secrets.yaml"
+if [ -f "$SECRETSFILE" ]; then SECRETSFILE="/homeassistant/secrets.yaml"; fi
+
 while IFS= read -r line; do
     # Clean output
     line="${line//[\"\']/}"
@@ -162,10 +169,10 @@ while IFS= read -r line; do
         echo "secret detected"
         secret=${line#*secret }
         # Check if single match
-        secretnum=$(sed -n "/$secret:/=" /config/secrets.yaml)
+        secretnum=$(sed -n "/$secret:/=" "$SECRETSFILE")
         [[ $(echo $secretnum) == *' '* ]] && bashio::exit.nok "There are multiple matches for your password name. Please check your secrets.yaml file"
         # Get text
-        secret=$(sed -n "/$secret:/p" /config/secrets.yaml)
+        secret=$(sed -n "/$secret:/p" "$SECRETSFILE")
         secret=${secret#*: }
         line="${line%%=*}='$secret'"
     fi

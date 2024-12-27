@@ -16,7 +16,7 @@
 
 ARG BUILD_FROM
 ARG BUILD_VERSION
-ARG BUILD_UPSTREAM="0.9.4+msmtpfix"
+ARG BUILD_UPSTREAM="0.10.1"
 FROM ${BUILD_FROM}
 
 ##################
@@ -38,6 +38,12 @@ RUN \
 ##################
 # Copy local files
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=SC2114
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh"

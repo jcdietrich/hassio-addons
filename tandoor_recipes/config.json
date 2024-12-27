@@ -86,6 +86,7 @@
     "SECRET_KEY": "YOUR_SECRET_KEY",
     "externalfiles_folder": "/config/addons_config/tandoor_recipes/externalfiles"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:silverware-fork-knife",
   "panel_title": "Tandoor Recipes",
   "ports": {
@@ -112,6 +113,6 @@
   "slug": "tandoor_recipes",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.5.14",
+  "version": "1.5.24",
   "webui": "http://[HOST]:[PORT:8080]"
 }

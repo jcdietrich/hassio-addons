@@ -21,7 +21,7 @@ if [ -f /data/config/www/nextcloud/config/config.php ]; then
     datadirectory="$(sed -n "s|.*datadirectory.*' => '*\(.*[^ ]\) *',.*|\1|p" /data/config/www/nextcloud/config/config.php)"
     echo "... data directory detected : $datadirectory"
 else
-    datadirectory=/share/nextcloud
+    datadirectory=/config/data
     echo "Nextcloud is not installed yet, the default data directory is : $datadirectory. You can change it during nextcloud installation."
 fi
 
@@ -31,10 +31,17 @@ if [[ "$datadirectory" == *"/mnt/"* ]] && [ ! -f "$datadirectory"/index.html ]; 
     bashio::addon.stop
 fi
 
+# Remove nginx conf if existing
+if [ -f /data/config/nginx/site-confs/default.conf ]; then
+  rm /data/config/nginx/site-confs/default.conf
+  # Avoid cannot enable app
+  sed -i "s|front_controller_active true|front_controller_active false|g" /defaults/nginx/site-confs/default.conf.sample
+fi
+
 echo "... setting permissions"
 mkdir -p "$datadirectory"
-chmod 755 -R "$datadirectory"
-chown -R "$PUID:$PGID" "$datadirectory"
+chmod 755 -R "$datadirectory" || true
+chown -R "$PUID:$PGID" "$datadirectory" || true
 mkdir -p /scripts
 
 echo "... done"

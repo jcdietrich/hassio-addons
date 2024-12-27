@@ -4,7 +4,7 @@
     "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
-  "description": "web based comic archive browser and reader",
+  "description": "Web based comic archive browser and reader",
   "devices": [
     "/dev/dri",
     "/dev/dri/card0",
@@ -78,6 +78,7 @@
     "PUID": "0",
     "csrf_allowed": "http://homeassistant.local:8123,https://homeassistant.local:8123"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:book-open",
   "ports": {
     "9810/tcp": 9810
@@ -105,5 +106,5 @@
   "slug": "codex",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "1.4.3-5"
+  "version": "1.7.10"
 }

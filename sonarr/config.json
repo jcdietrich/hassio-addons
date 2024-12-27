@@ -82,8 +82,10 @@
   "name": "Sonarr",
   "options": {
     "PGID": 0,
-    "PUID": 0
+    "PUID": 0,
+    "connection_mode": "ingress_noauth"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:television-classic",
   "ports": {
     "8989/tcp": 8989
@@ -102,13 +104,12 @@
     "cifsdomain": "str?",
     "cifspassword": "str?",
     "cifsusername": "str?",
-    "ingress_disabled": "bool?",
+    "connection_mode": "list(ingress_noauth|noingress_auth|ingress_auth)",
     "localdisks": "str?",
-    "networkdisks": "str?",
-    "smbv1": "bool?"
+    "networkdisks": "str?"
   },
   "slug": "sonarr_nas",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/sonarr",
-  "version": "4.0.2.1262"
+  "version": "4.0.11.2774"
 }

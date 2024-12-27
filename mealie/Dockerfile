@@ -14,9 +14,27 @@
 # 1 Build Image #
 #################
 
-ARG BUILD_FROM
-ARG BUILD_VERSION
-FROM ${BUILD_FROM}
+# Stage 1: Build Frontend with SUB_PATH
+FROM node:16 AS builder
+
+# Set the SUB_PATH environment variable
+ARG SUB_PATH="/mealie/"
+ENV SUB_PATH=$SUB_PATH
+
+WORKDIR /app
+
+# Clone the Mealie repository to get the frontend source code
+# hadolint ignore=DL3003
+RUN git clone --branch v2.4.1 https://github.com/mealie-recipes/mealie.git . && \
+    cd /app/frontend && \
+    yarn install --prefer-offline --frozen-lockfile --non-interactive --production=false --network-timeout 1000000 && \
+    yarn generate
+
+# Stage 2: Build the Final Image
+FROM hkotel/mealie:v2.4.1
+
+# Copy the rebuilt frontend files into the final image
+COPY --from=builder /app/frontend/dist /spa/static
 
 ##################
 # 2 Modify Image #
@@ -29,7 +47,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 # Correct data path
 # hadolint ignore=DL4006
-RUN grep -rl "/app/data" /app | xargs sed -i 's|/app/data|/config/addons_config/mealie_data|g' && \
+RUN grep -rl "/app/data" /app | xargs sed -i 's|/app/data|/config|g' && \
     sed -i "s|change_user$|# change_user|g" /app/run.sh
 
 ##################
@@ -38,6 +56,11 @@ RUN grep -rl "/app/data" /app | xargs sed -i 's|/app/data|/config/addons_config/
 
 # Add rootfs
 COPY rootfs/ /
+
+# Uses /bin for compatibility purposes
+# hadolint ignore=DL4005
+RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
+    if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh"
@@ -71,6 +94,12 @@ RUN \
     && cat /app/run.sh >> /run.txt \
     && cat /run.txt > /app/run.sh \
     && chmod +x /app/run.sh
+
+# Expose necessary ports
+EXPOSE 9000
+
+# Set the entrypoint
+ENTRYPOINT ["/app/run.sh"]
 
 ############
 # 5 Labels #

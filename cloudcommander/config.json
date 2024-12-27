@@ -79,6 +79,7 @@
     "addons:rw"
   ],
   "name": "Cloudcommander",
+  "panel_admin": false,
   "panel_icon": "mdi:file-search",
   "ports": {
     "8000/tcp": 8000
@@ -103,5 +104,5 @@
   "slug": "cloudcommander",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/cloudcommander",
-  "version": "17.0.3"
+  "version": "18.4.1"
 }

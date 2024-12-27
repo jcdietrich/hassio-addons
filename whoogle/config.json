@@ -1,8 +1,7 @@
 {
   "arch": [
     "aarch64",
-    "amd64",
-    "armv7"
+    "amd64"
   ],
   "codenotary": "alexandrep.github@gmail.com",
   "description": "Self-hosted, ad-free, privacy-respecting metasearch engine",
@@ -80,6 +79,7 @@
     "WHOOGLE_CONFIG_LANGUAGE": "lang_en",
     "WHOOGLE_CONFIG_URL": "https://website.com"
   },
+  "panel_admin": false,
   "panel_icon": "mdi:magnify",
   "ports": {
     "5000/tcp": 5000
@@ -123,5 +123,5 @@
   "slug": "whoogle-search",
   "udev": true,
   "url": "https://github.com/alexbelgium/hassio-addons/tree/master/whoogle",
-  "version": "0.8.4-3"
+  "version": "0.9.1"
 }

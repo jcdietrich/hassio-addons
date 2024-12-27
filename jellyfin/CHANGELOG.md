@@ -1,33 +1,76 @@
-### 10.8.13-3-3 (10-12-2023)
+
+## 10.10.3 (23-11-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.10.1 (09-11-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.10.0 (02-11-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.9.11 (14-09-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.9.10 (31-08-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.9.9 (10-08-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.9.8 (27-07-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.9.7 (29-06-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.9.6 (08-06-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+## 10.9.3-2 (01-06-2024)
+- Minor bugs fixed
+
+## 10.9.3 (01-06-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.9.2 (18-05-2024)
+- Update to latest version from linuxserver/docker-jellyfin (changelog : https://github.com/linuxserver/docker-jellyfin/releases)
+
+## 10.8.13-3-3 (10-12-2023)
+
 - Minor bugs fixed
 - Corrected 00-smb_mounts.sh logic for servers that don't support anonymous access
 
 ## 10.8.13-1 (04-12-2023)
+
 - Allows non-admin users to use paperless from HA sidebar
 
 ## 10.8.13 (02-12-2023)
+
 - Update to latest version from linuxserver/docker-jellyfin
-### 10.8.12-4 (21-11-2023)
+## 10.8.12-4 (21-11-2023)
+
 - Minor bugs fixed
-### 10.8.12-2 (12-11-2023)
+## 10.8.12-2 (12-11-2023)
+
 - Minor bugs fixed
 
 ## 10.8.12 (11-11-2023)
+
 - Update to latest version from linuxserver/docker-jellyfin
 
 ## 10.8.11 (30-09-2023)
+
 - Update to latest version from linuxserver/docker-jellyfin
 - Arm32v7 discontinued by linuxserver, latest working version pinned
 
-### 10.8.10-6 (08-05-2023)
+## 10.8.10-6 (08-05-2023)
 
 - Minor bugs fixed
 
-### 10.8.10-5 (04-05-2023)
+## 10.8.10-5 (04-05-2023)
 
 - Minor bugs fixed
 
-### 10.8.10-2 (04-05-2023)
+## 10.8.10-2 (04-05-2023)
 
 - Minor bugs fixed
 - Add symlink for transcodes folder https://github.com/alexbelgium/hassio-addons/issues/777
